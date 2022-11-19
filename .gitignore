@@ -1,5 +1,13 @@
-CTF/Frontend/node_modules
 CTF/Frontend/.idea
+CTF/Frontend/node_modules
 
-CTF/Backend/__pycache__
 CTF/Backend/.idea
+CTF/Backend/__pycache__
+CTF/Backend/venv
+
+Classes/Broken_Authentication/.idea
+Classes/Broken_Authentication/__pycache__
+Classes/Broken_Authentication/venv
+
+Vulnerability_Assessment/NPMScanner/npm_scanner/.idea
+Vulnerability_Assessment/NPMScanner/npm_scanner/node_modules
