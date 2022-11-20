@@ -12,4 +12,6 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 COPY . /app
 
-ENTRYPOINT ["python", "app.py"]
+EXPOSE 5000
+
+ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]

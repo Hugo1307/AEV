@@ -1,4 +1,5 @@
 import mysql.connector
+import sys
 
 from authHandler import AuthHandler
 
@@ -67,7 +68,8 @@ class DatabaseHandler:
             cursor.execute(query, (email, password_digest,))
             self.connection.commit()
         except mysql.connector.Error as err:
-            print("MySQL Error on register(): ", err.msg)
+            print(f"MySQL Error on register(): {err.msg}", file=sys.stdout)
+            sys.stdout.flush()
             successful_registration = False
 
         cursor.close()
