@@ -1,5 +1,6 @@
 import TopBar from "./TopBar";
 import {Container} from "react-bootstrap";
+import {ToastContainer} from "react-toastify";
 
 const Page = (props) => {
 
@@ -7,6 +8,7 @@ const Page = (props) => {
         <Container>
             <TopBar/>
             {props.component}
+            <ToastContainer position="bottom-right"/>
         </Container>
     );
 

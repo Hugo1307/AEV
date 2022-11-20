@@ -13,6 +13,10 @@ const Register = () => {
 
             <RegisterForm/>
 
+            <Row className="my-5 text-center">
+                <p>Already Registered? <a href="/login">Login</a></p>
+            </Row>
+
         </Container>
 
     );
