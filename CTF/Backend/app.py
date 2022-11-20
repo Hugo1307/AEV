@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS, cross_origin
 
@@ -6,8 +8,7 @@ from databaseHandler import DatabaseHandler
 app = Flask(__name__)
 CORS(app)
 
-# Init Database
-database_handler = DatabaseHandler("localhost", "foodCo", "password", "foodCoCTF")
+database_handler = DatabaseHandler(os.getenv("DB_ADDRESS"), os.getenv("DB_USER"), os.getenv("DB_PASSWORD"), os.getenv("DB_NAME"))
 database_handler.open_connection()
 
 

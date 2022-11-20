@@ -1,0 +1,21 @@
+services:
+  db:
+    build:
+      context: ./Database
+    ports:
+      - "3308:3306"
+    volumes:
+      - .Database/db:/docker-entrypoint-initdb.d/:ro
+  frontend:
+    build:
+      context: ./Frontend
+    ports: 
+      - "3000:3000"
+  backend:
+    build:
+      context: ./Backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    restart: unless-stopped

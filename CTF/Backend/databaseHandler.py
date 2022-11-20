@@ -14,7 +14,7 @@ class DatabaseHandler:
 
     def open_connection(self):
         self.connection = mysql.connector.connect(user=self.user, password=self.password, host=self.address,
-                                                  database=self.database)
+                                                  database=self.database, port=3306)
 
     def verify_connection(self):
         if not self.connection:
