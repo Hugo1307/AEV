@@ -7,7 +7,9 @@ const Page = (props) => {
     return (
         <Container>
             <TopBar/>
-            {props.component}
+            <div className="mt-3">
+                {props.component}
+            </div>
             <ToastContainer position="bottom-right"/>
         </Container>
     );

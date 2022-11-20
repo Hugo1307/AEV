@@ -32,3 +32,6 @@ export const registerEndpoint = async (email, password) => {
 
 };
 
+export const getCategoriesEndpoint = () => {
+    return {uri: backendAddress + '/categories'}
+}

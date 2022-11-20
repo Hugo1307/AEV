@@ -79,17 +79,17 @@ class DatabaseHandler:
 
         self.verify_connection()
 
-        cursor = self.connection.cursor()
+        cursor = self.connection.cursor(buffered=True)
 
         query = "SELECT * FROM categories;"
-        food_categories = {}
+        food_categories = []
 
         try:
 
             cursor.execute(query)
 
-            for (category_id, name, description) in cursor:
-                food_categories[category_id] = {"name": name, "description": description}
+            for (category_id, name, description, image) in cursor:
+                food_categories.append({"id": category_id, "name": name, "description": description, "image": image})
 
         except mysql.connector.Error as err:
             print("MySQL Error on get_food_categories(): ", err.msg)
@@ -101,7 +101,7 @@ class DatabaseHandler:
 
         self.verify_connection()
 
-        cursor = self.connection.cursor()
+        cursor = self.connection.cursor(buffered=True)
 
         query = "SELECT * FROM categories WHERE id={0}".format(category_id)
         food_category = []

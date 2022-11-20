@@ -5,7 +5,7 @@ services:
     ports:
       - "3308:3306"
     volumes:
-      - "./Database/mariadb:/var/lib/mysql"
+      - "./Database/mariadb:/var/lib/mysql:z"
       - "./Database/init.sql:/docker-entrypoint-initdb.d/init.sql"
   frontend:
     build:

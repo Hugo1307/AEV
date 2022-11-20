@@ -12,6 +12,8 @@ const CategoryInfo = ({id}) => {
     if (loading) {
         return (<h1>Loading...</h1>);
     } else if (data) {
+        
+        console.log(data)
 
         let foodCategoryItem = data[data.length-1];
         return (
