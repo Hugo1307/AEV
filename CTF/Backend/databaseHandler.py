@@ -120,7 +120,7 @@ class DatabaseHandler:
         cursor.close()
         return food_category
 
-    def get_profile_by_token(self, access_token):
+    def get_user_by_token(self, access_token):
 
         self.verify_connection()
 

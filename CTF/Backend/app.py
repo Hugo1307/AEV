@@ -3,6 +3,7 @@ import os
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 
+from authHandler import AuthHandler
 from databaseHandler import DatabaseHandler
 
 app = Flask(__name__)
@@ -12,10 +13,35 @@ database_handler = DatabaseHandler(os.getenv("DB_ADDRESS"), os.getenv("DB_USER")
                                    os.getenv("DB_NAME"))
 database_handler.open_connection()
 
+auth_handler = AuthHandler(database_handler)
+
+
+@app.before_request
+def check_authentication():
+
+    authorization_header = request.headers.get("Authorization")
+
+    if request.path != "/login" and request.path != "/register":
+
+        if not authorization_header:
+            return make_response(jsonify({"message": "You must be authenticated to do this."}), 401)
+
+        if not authorization_header.startswith("Bearer "):
+            return make_response(jsonify({"message": "You should use a Bearer token for Authentication."}), 400)
+
+        auth_token = auth_handler.get_token_from_request(request)
+
+        if not auth_token:
+            return make_response(jsonify({"message": "Unknown error obtaining token."}), 500)
+
+        user_by_token = auth_handler.get_user(auth_token)
+
+        if not user_by_token:
+            return make_response(jsonify({"message": "You don't have access to that resource."}), 403)
+
 
 @app.route('/login', methods=['PUT'])
 def login():
-
     if request.is_json:
 
         body = request.json
@@ -29,10 +55,11 @@ def login():
         else:
             return make_response(jsonify({"message": "Incorrect credentials"}), 401)
 
+    return make_response(jsonify({"message": "Missing parameters in request"}), 400)
+
 
 @app.route('/register', methods=['POST'])
 def register():
-
     if request.is_json:
 
         body = request.json
@@ -55,26 +82,22 @@ def get_food_categories():
 
 @app.route('/category', methods=['GET'])
 def get_food_category():
-
     category_id = request.args['id']
     food_category = database_handler.get_food_category(category_id)
 
-    return make_response(jsonify(food_category), 200,)
+    return make_response(jsonify(food_category), 200, )
 
 
 @app.route('/profile', methods=['GET'])
 def get_user_profile():
 
-    access_token = request.args['access_token']
-    profile_details = database_handler.get_profile_by_token(access_token)
+    auth_token = auth_handler.get_token_from_request(request)
+    user = auth_handler.get_user(auth_token)
 
-    if not profile_details:
-        return make_response(jsonify({"message": "Profile not found."}), 200, )
+    if not user:
+        return make_response(jsonify({"message": "Profile not found."}), 404)
 
-    profile_details_formatted = {"email": profile_details[0], "password": profile_details[1],
-                                 "isAdmin": profile_details[2], "accessToken": profile_details[3]}
-
-    return make_response(jsonify(profile_details_formatted), 200, )
+    return make_response(jsonify(user.to_dict()), 200, )
 
 
 if __name__ == '__main__':
