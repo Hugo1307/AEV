@@ -13,6 +13,7 @@ import Register from "./pages/Register";
 import Categories from "./pages/Categories";
 import Category from "./pages/Category";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
                     <Route path="/home" element={<Page component={<Home/>}/>} />
                     <Route path="/categories" element={<Page component={<Categories/>}/>} />
                     <Route path="/category/:categoryId" element={<Page component={<Category/>}/>} />
+                    <Route path="/profile" element={<Page component={<Profile/>} />} />
                     <Route path="*" element={<Navigate to="/home" replace />} />
                 </Routes>
             </BrowserRouter>

@@ -1,19 +1,18 @@
 import useFetchData from "../hooks/useFetchData";
 import {Col, Container, Row} from "react-bootstrap";
 import ItemCard from "./ItemCard";
+import {getCategoryInfoEndpoint} from "../api/apiHandler";
 
 const CategoryInfo = ({id}) => {
 
     const {
         data,
         loading
-    } = useFetchData("http://127.0.0.1:5000/category", {id: id});
+    } = useFetchData(getCategoryInfoEndpoint().uri, {id: id});
 
     if (loading) {
         return (<h1>Loading...</h1>);
     } else if (data) {
-        
-        console.log(data)
 
         let foodCategoryItem = data[data.length-1];
         return (

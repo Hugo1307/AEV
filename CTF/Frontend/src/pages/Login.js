@@ -1,18 +1,21 @@
 import {Container, Row} from "react-bootstrap";
 import LoginForm from "../components/LoginForm";
 import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
 
 const Login = () => {
 
-    const routerNavigate = useNavigate();
+    const navigate = (path, time) => {
+        setTimeout(() => {
+            window.location = path;
+        }, time);
+    }
 
     const onLoginSuccessful = (responseData) => {
 
         toast(responseData.message);
         localStorage.setItem("food_co_access_token", responseData.token);
 
-        routerNavigate("/home");
+        navigate("/home", 2000);
 
     }
 
@@ -28,7 +31,7 @@ const Login = () => {
                 <h2>Login</h2>
             </Row>
 
-            <LoginForm onLoginSuccessful={onLoginSuccessful} onLoginFailed={onLoginFailed}/>
+            <LoginForm onLoginSuccessful={onLoginSuccessful} onLoginFailed={onLoginFailed} />
 
             <Row className="my-5 text-center">
                 <p>Not Registered? <a href="/register">Register</a></p>

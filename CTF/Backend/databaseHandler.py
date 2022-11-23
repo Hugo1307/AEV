@@ -120,6 +120,40 @@ class DatabaseHandler:
         cursor.close()
         return food_category
 
+    def get_profile_by_token(self, access_token):
+
+        self.verify_connection()
+
+        cursor = self.connection.cursor()
+        query = "SELECT * FROM users WHERE token=%s LIMIT 1".format(access_token)
+        args = (access_token,)
+
+        try:
+            cursor.execute(query, args)
+            return cursor.fetchone()
+        except mysql.connector.Error as err:
+            print("MySQL Error on get_profile_by_token(): ", err.msg)
+
+        cursor.close()
+        return None
+
+    def has_admin_rights(self, access_token):
+
+        self.verify_connection()
+
+        cursor = self.connection.cursor()
+        query = "SELECT * FROM users WHERE token=%s LIMIT 1".format(access_token)
+        args = (access_token,)
+
+        try:
+            cursor.execute(query, args)
+            return cursor.fetchone()[2] == 1
+        except mysql.connector.Error as err:
+            print("MySQL Error on has_admin_rights(): ", err.msg)
+
+        cursor.close()
+        return False
+
     def __update_token(self, email, blank_password):
 
         self.verify_connection()
