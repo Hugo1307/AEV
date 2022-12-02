@@ -5,8 +5,12 @@ from flask_cors import CORS
 
 from authHandler import AuthHandler
 from databaseHandler import DatabaseHandler
+from cron.cron_log_reader import CronLogReader
+from cron.cron_manager import CronManager
+from swagger.swagger import Swagger
 
 app = Flask(__name__)
+app.register_blueprint(Swagger.swaggerui_blueprint())
 CORS(app)
 
 database_handler = DatabaseHandler(os.getenv("DB_ADDRESS"), os.getenv("DB_USER"), os.getenv("DB_PASSWORD"),
@@ -99,6 +103,19 @@ def get_user_profile():
 
     return make_response(jsonify(user.to_dict()), 200, )
 
+@app.route('/cron', methods=['GET'])
+def get_recent_cron_log():
+    cron_log_reader = CronLogReader()
+    recent_cron_log = cron_log_reader.get_recent_cron_log()
+    return make_response(jsonify(recent_cron_log), 200, )
+
+@app.route('/cron', methods=['POST'])
+def update_cleaner_time():
+    body = request.json
+    new_cron_time = body['new_cron_time']
+    cron_manager = CronManager()
+    sed_command = cron_manager.update_cleaner_time(new_cron_time)
+    return make_response(jsonify(sed_command), 200, )
 
 if __name__ == '__main__':
     app.run()

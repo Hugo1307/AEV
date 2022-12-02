@@ -4,6 +4,7 @@ ENV DB_ADDRESS=db
 ENV DB_USER=root
 ENV DB_PASSWORD=admin
 ENV DB_NAME=foodCoCTF
+ENV AWS_SECRET=YouCapturedTheFlagAndWonTheChallengeParabens!!!
 
 COPY ./requirements.txt /app/requirements.txt
 
