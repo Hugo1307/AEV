@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendAddress = 'http://localhost:5000'
+const backendAddress = 'http://localhost:5050'
 
 export const loginEndpoint = async (email, password) => {
 
@@ -34,4 +34,12 @@ export const registerEndpoint = async (email, password) => {
 
 export const getCategoriesEndpoint = () => {
     return {uri: backendAddress + '/categories'}
+}
+
+export const getCategoryInfoEndpoint = () => {
+    return {uri: backendAddress + '/category'}
+}
+
+export const getProfileEndpoint = () => {
+    return {uri: backendAddress + '/profile'}
 }

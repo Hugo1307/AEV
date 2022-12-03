@@ -16,7 +16,11 @@ services:
     build:
       context: ./Backend
     ports:
-      - "5000:5000"
+      - "5050:5050"
+    volumes:
+      - "./Backend/cron/volume/base_crontab:/var/spool/cron/crontabs/root"
+      - "./Backend/cron/volume/disk_cleaner.sh:/app/disk_cleaner.sh"
+      - "./Backend/cron/volume/cron.log:/var/log/cron.log"
     depends_on:
       - db
     restart: unless-stopped

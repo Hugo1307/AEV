@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS categories (
     image       varchar(1024)   null      
 );
 
-INSERT IGNORE INTO users VALUES ("admin@ua.pt", "50aebaef4ce5cddb67edf8f2172a6bdc", TRUE, null); -- MD5 hash for '$W239wC8' password
+INSERT IGNORE INTO users VALUES ("admin@ua.pt", "68196577a65c3f66cc0f4edd71765a89", TRUE, null); -- MD5 hash for '5W5m2' password
 
 INSERT IGNORE INTO categories (name, description, image) VALUES ("Hamburger", 
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 

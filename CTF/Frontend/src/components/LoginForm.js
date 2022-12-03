@@ -11,6 +11,7 @@ const LoginForm = (props) => {
 
     const performLogin = async (email, password) => {
         let axiosResponse = await loginEndpoint(email, password);
+        console.log(axiosResponse)
         setResponseData(axiosResponse.response.data);
         setResponseStatus(axiosResponse.response.status);
     }
@@ -21,7 +22,7 @@ const LoginForm = (props) => {
             return;
         }
 
-        responseStatus === 200 ? props.onLoginSuccessful(responseData) : props.onLoginFailed(responseData)
+        responseStatus === 200 ? props.onLoginSuccessful(responseData) : props.onLoginFailed(responseData);
 
         setResponseStatus(undefined);
         setResponseData(undefined);
