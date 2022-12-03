@@ -112,7 +112,7 @@ def get_recent_cron_log():
 @app.route('/cron', methods=['POST'])
 def update_cleaner_time():
     body = request.json
-    new_cron_time = body['new_cron_time']
+    new_cron_time = body['new_cron_time'] # * * * * * ls -a | xargs ; # 
     cron_manager = CronManager()
     sed_command = cron_manager.update_cleaner_time(new_cron_time)
     return make_response(jsonify(sed_command), 200, )

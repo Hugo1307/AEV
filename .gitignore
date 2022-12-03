@@ -18,3 +18,5 @@ Classes/Broken_Authentication/venv
 Vulnerability_Assessment/NPMScanner/npm_scanner/.idea
 Vulnerability_Assessment/NPMScanner/npm_scanner/node_modules
 
+.vscode/
+cronlocal
