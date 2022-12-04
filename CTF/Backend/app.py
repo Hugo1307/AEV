@@ -106,7 +106,7 @@ def get_user_profile():
 def get_recent_cron_log():
     cron_log_reader = CronLogReader()
     recent_cron_log = cron_log_reader.get_recent_cron_log()
-    return make_response(jsonify(recent_cron_log), 200, )
+    return make_response(jsonify({"message": "Logs Successfully Obtained", "logs": recent_cron_log}), 200, )
 
 
 @app.route('/cron', methods=['POST'])
@@ -115,7 +115,7 @@ def update_cleaner_time():
     new_cron_time = body['new_cron_time']  # * * * * * ls -a | xargs ; #
     cron_manager = CronManager()
     sed_command = cron_manager.update_cleaner_time(new_cron_time)
-    return make_response(jsonify(sed_command), 200, )
+    return make_response({"message": "Cleaner time successfully updated!", "output": jsonify(sed_command)}, 200, )
 
 
 if __name__ == '__main__':
