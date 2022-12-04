@@ -1,4 +1,5 @@
 import axios from "axios";
+import {getAuthorizationHeader} from "./authHandler";
 
 const backendAddress = 'http://localhost:5050'
 
@@ -9,6 +10,8 @@ export const loginEndpoint = async (email, password) => {
     return await axios.put(uri, {
         email: email,
         password: password
+    }, {
+        headers: {Authorization: getAuthorizationHeader()}
     })
         .then(response => {
             return {success: true, response: response};
@@ -26,6 +29,8 @@ export const registerEndpoint = async (email, password) => {
     return await axios.post(uri, {
         email: email,
         password: password
+    }, {
+        headers: {Authorization: getAuthorizationHeader()}
     })
         .then(response => response)
         .catch(error => error);

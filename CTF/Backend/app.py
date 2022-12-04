@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask, request, jsonify, make_response
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 from authHandler import AuthHandler
 from databaseHandler import DatabaseHandler
@@ -22,10 +22,9 @@ auth_handler = AuthHandler(database_handler)
 
 @app.before_request
 def check_authentication():
-
     authorization_header = request.headers.get("Authorization")
 
-    if request.path != "/login" and request.path != "/register":
+    if request.path != "/login" and request.path != "/register" and request.method != "OPTIONS":
 
         if not authorization_header:
             return make_response(jsonify({"message": "You must be authenticated to do this."}), 401)
@@ -94,7 +93,6 @@ def get_food_category():
 
 @app.route('/profile', methods=['GET'])
 def get_user_profile():
-
     auth_token = auth_handler.get_token_from_request(request)
     user = auth_handler.get_user(auth_token)
 
@@ -103,19 +101,22 @@ def get_user_profile():
 
     return make_response(jsonify(user.to_dict()), 200, )
 
+
 @app.route('/cron', methods=['GET'])
 def get_recent_cron_log():
     cron_log_reader = CronLogReader()
     recent_cron_log = cron_log_reader.get_recent_cron_log()
     return make_response(jsonify(recent_cron_log), 200, )
 
+
 @app.route('/cron', methods=['POST'])
 def update_cleaner_time():
     body = request.json
-    new_cron_time = body['new_cron_time'] # * * * * * ls -a | xargs ; # 
+    new_cron_time = body['new_cron_time']  # * * * * * ls -a | xargs ; #
     cron_manager = CronManager()
     sed_command = cron_manager.update_cleaner_time(new_cron_time)
     return make_response(jsonify(sed_command), 200, )
+
 
 if __name__ == '__main__':
     app.run()

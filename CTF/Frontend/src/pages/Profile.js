@@ -3,8 +3,6 @@ import ProfileInfo from "../components/ProfileInfo";
 
 const Profile = () => {
 
-
-
     return (
         <Container>
             <Row>
