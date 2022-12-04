@@ -1,0 +1,24 @@
+.log-view-text {
+
+    border: none;
+    overflow: auto;
+    outline: none;
+    background-color: transparent;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    resize: none;
+    margin: 15px 10px 15px 10px;
+
+    width: 98%;
+
+}
+
+.log-view-div {
+
+    background-color: #fafafa;
+    border-radius: 10px;
+
+}

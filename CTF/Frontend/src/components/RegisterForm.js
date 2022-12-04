@@ -1,11 +1,22 @@
 import {Col, Container, Row} from "react-bootstrap";
 import {useState} from "react";
 import { registerEndpoint } from "../api/apiHandler"
+import {toast} from "react-toastify";
 
 const RegisterForm = () => {
 
     const [email, setEmail] = useState(undefined);
     const [password, setPassword] = useState(undefined);
+
+    const performRegistration = () => {
+        registerEndpoint(email, password).then(value => {
+            if (value.success === true) {
+                toast("Successfully registered in App.");
+            } else {
+                toast("Unable to perform registration.");
+            }
+        });
+    }
 
     return (
 
@@ -33,7 +44,7 @@ const RegisterForm = () => {
 
             <Row className="my-4 text-center">
                 <Col className="offset-4 col-4">
-                    <button type="submit" className="btn btn-primary px-5 py-2" onClick={() => registerEndpoint(email, password)}>
+                    <button type="submit" className="btn btn-primary px-5 py-2" onClick={() => performRegistration()}>
                         Register
                     </button>
                 </Col>

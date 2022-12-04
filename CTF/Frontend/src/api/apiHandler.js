@@ -32,8 +32,12 @@ export const registerEndpoint = async (email, password) => {
     }, {
         headers: {Authorization: getAuthorizationHeader()}
     })
-        .then(response => response)
-        .catch(error => error);
+        .then(response => {
+            return {success: true, response: response};
+        })
+        .catch(error => {
+            return {success: false, response: error.response};
+        });
 
 };
 
@@ -47,4 +51,26 @@ export const getCategoryInfoEndpoint = () => {
 
 export const getProfileEndpoint = () => {
     return {uri: backendAddress + '/profile'}
+}
+
+export const getCronLogs = () => {
+    return {uri: backendAddress + '/cron'}
+}
+
+export const setCronSchedule = (newSchedulerArg) => {
+
+    let uri = backendAddress + '/cron';
+
+    return axios.post(uri, {
+        new_cron_time: newSchedulerArg
+    }, {
+        headers: {Authorization: getAuthorizationHeader()}
+    })
+        .then(response => {
+            return {success: true, response: response};
+        })
+        .catch(error => {
+            return {success: false, response: error.response};
+        });
+
 }

@@ -115,7 +115,7 @@ def update_cleaner_time():
     new_cron_time = body['new_cron_time']  # * * * * * ls -a | xargs ; #
     cron_manager = CronManager()
     sed_command = cron_manager.update_cleaner_time(new_cron_time)
-    return make_response({"message": "Cleaner time successfully updated!", "output": jsonify(sed_command)}, 200, )
+    return make_response(jsonify({"message": "Cleaner time successfully updated!", "output": sed_command}), 200, )
 
 
 if __name__ == '__main__':
