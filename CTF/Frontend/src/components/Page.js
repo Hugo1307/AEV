@@ -6,7 +6,7 @@ const Page = (props) => {
 
     return (
         <Container>
-            <TopBar/>
+            <TopBar loggedIn={props.loggedIn}/>
             <div className="mt-3">
                 {props.component}
             </div>

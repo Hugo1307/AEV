@@ -1,6 +1,7 @@
 import {Container, Row} from "react-bootstrap";
 import LoginForm from "../components/LoginForm";
 import {toast} from "react-toastify";
+import {setAccessToken} from "../api/authHandler";
 
 const Login = () => {
 
@@ -13,7 +14,7 @@ const Login = () => {
     const onLoginSuccessful = (responseData) => {
 
         toast(responseData.message);
-        localStorage.setItem("food_co_access_token", responseData.token);
+        setAccessToken(responseData.token);
 
         navigate("/home", 2000);
 

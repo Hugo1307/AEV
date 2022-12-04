@@ -31,11 +31,11 @@ function App() {
         return (
             <BrowserRouter>
                 <Routes>
-                    <Route path="/home" element={<Page component={<Home/>}/>} />
-                    <Route path="/categories" element={<Page component={<Categories/>}/>} />
-                    <Route path="/category/:categoryId" element={<Page component={<Category/>}/>} />
-                    <Route path="/profile" element={<Page component={<Profile/>} />} />
-                    <Route path="*" element={<Navigate to="/home" replace />} />
+                    <Route path="/home" element={<Page component={<Home/>} loggedIn/>} />
+                    <Route path="/categories" element={<Page component={<Categories/>} loggedIn/>} />
+                    <Route path="/category/:categoryId" element={<Page component={<Category/>} loggedIn/>} />
+                    <Route path="/profile" element={<Page component={<Profile/>} loggedIn/>} />
+                    <Route path="*" element={<Navigate to="/home" replace />} loggedIn/>
                 </Routes>
             </BrowserRouter>
         );
