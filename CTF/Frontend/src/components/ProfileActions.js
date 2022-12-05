@@ -62,7 +62,7 @@ const ProfileActions = (props) => {
                         <Row className="h-75">
                             <h3 className="m-0">System Logs</h3>
                             <small id="systemLogsHelp" className="form-text text-muted">
-                                Logs provided by the system scheduled tasks.
+                                Logs provided by the system scheduled tasks stored in '/var/log/cron.log'.
                             </small>
                             <LogViewComponent text={cronLogs}/>
                         </Row>

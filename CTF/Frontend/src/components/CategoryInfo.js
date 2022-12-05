@@ -14,8 +14,6 @@ const CategoryInfo = ({id}) => {
         return (<h1>Loading...</h1>);
     } else if (data) {
 
-        console.log(data)
-
         let foodCategoryItem = data[data.length-1];
         return (
           <Container>
@@ -27,8 +25,10 @@ const CategoryInfo = ({id}) => {
                       <ItemCard id={id} title={foodCategoryItem.title} image={foodCategoryItem.image}/>
                   </Col>
                   <Col className="mx-4">
-                      <h3 className="mb-4">Description</h3>
+                      <h4 className="mb-4">Description</h4>
                       <p className="fs-6 fw-light">{foodCategoryItem.description}</p>
+                      <h5 className="mb-4 mt-5">Recipe</h5>
+                      <p className="fs-6 fw-light">{foodCategoryItem.recipe}</p>
                   </Col>
               </Row>
           </Container>
