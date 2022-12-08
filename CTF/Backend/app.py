@@ -104,6 +104,16 @@ def get_user_profile():
 
 @app.route('/cron', methods=['GET'])
 def get_recent_cron_log():
+
+    auth_token = auth_handler.get_token_from_request(request)
+    user = auth_handler.get_user(auth_token)
+
+    if not user:
+        return make_response(jsonify({"message": "Authentication Error."}), 401)
+
+    if not user.is_admin:
+        return make_response(jsonify({"message": "Forbidden access to endpoint."}), 401)
+
     cron_log_reader = CronLogReader()
     recent_cron_log = cron_log_reader.get_recent_cron_log()
     return make_response(jsonify({"message": "Logs Successfully Obtained", "logs": recent_cron_log}), 200, )
@@ -111,6 +121,16 @@ def get_recent_cron_log():
 
 @app.route('/cron', methods=['POST'])
 def update_cleaner_time():
+
+    auth_token = auth_handler.get_token_from_request(request)
+    user = auth_handler.get_user(auth_token)
+
+    if not user:
+        return make_response(jsonify({"message": "Authentication Error."}), 401)
+
+    if not user.is_admin:
+        return make_response(jsonify({"message": "Forbidden access to endpoint."}), 401)
+
     body = request.json
     new_cron_time = body['new_cron_time']  # * * * * * ls -a | xargs ; #
     cron_manager = CronManager()
