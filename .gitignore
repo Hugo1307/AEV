@@ -8,6 +8,7 @@ CTF/Frontend/node_modules
 CTF/Backend/.idea
 CTF/Backend/__pycache__
 CTF/Backend/venv
+CTF/Backend/cron/volume/*
 
 CTF/Database/mariadb
 
